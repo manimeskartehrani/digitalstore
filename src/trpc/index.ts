@@ -3,6 +3,7 @@ import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
 import { QueryValiator } from "../lib/validators/query-validators";
 import { getPayloadClient } from "../get-payload";
+import { paymentRouter } from "./payment-router";
 
 // export const appRouter = router({
 //   anyApiRoute: publicProcedure.query(() => {
@@ -12,6 +13,7 @@ import { getPayloadClient } from "../get-payload";
 
 export const appRouter = router({
   auth: authRouter,
+  payment: paymentRouter,
 
   getInfiniteProducts: publicProcedure
     .input(

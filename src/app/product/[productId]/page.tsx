@@ -1,10 +1,10 @@
-import AddToCartButton from "@/components/AddToCartButton";
-import ImageSlider from "@/components/ImageSlider";
+import AddToCartButton from "../../../components/AddToCartButton";
+import ImageSlider from "../../../components/ImageSlider";
 import MaxWidthWrapper from "../../../components/MaxWithWrapper";
 import ProductReel from "../../../components/ProductReel";
-import { PRODUCT_CATEGORIES } from "@/config";
-import { getPayloadClient } from "@/get-payload";
-import { formatPrice } from "@/lib/utils";
+import { PRODUCT_CATEGORIES } from "../../../config";
+import { getPayloadClient } from "../../../get-payload";
+import { formatPrice } from "../../../lib/utils";
 import { Check, Shield } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -47,6 +47,7 @@ const Page = async ({ params }: PageProps) => {
   )?.label;
 
   const validUrls = product.images
+    // @ts-expect-error
     .map(({ image }) => (typeof image === "string" ? image : image.url))
     .filter(Boolean) as string[];
 
@@ -83,14 +84,14 @@ const Page = async ({ params }: PageProps) => {
 
             <div className="mt-4">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {product.name}
+                {product.name as string}
               </h1>
             </div>
 
             <section className="mt-4">
               <div className="flex items-center">
                 <p className="font-medium text-gray-900">
-                  {formatPrice(product.price)}
+                  {formatPrice(product.price as string)}
                 </p>
 
                 <div className="ml-4 border-l text-muted-foreground border-gray-300 pl-4">
@@ -100,7 +101,7 @@ const Page = async ({ params }: PageProps) => {
 
               <div className="mt-4 space-y-6">
                 <p className="text-base text-muted-foreground">
-                  {product.description}
+                  {product.description as string}
                 </p>
               </div>
 
@@ -127,7 +128,11 @@ const Page = async ({ params }: PageProps) => {
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <div>
               <div className="mt-10">
-                <AddToCartButton product={product} />
+                {/*  */}
+                <AddToCartButton
+                  // @ts-expect-error
+                  product={product}
+                />
               </div>
               <div className="mt-6 text-center">
                 <div className="group inline-flex text-sm text-medium">
@@ -144,9 +149,9 @@ const Page = async ({ params }: PageProps) => {
           </div>
         </div>
       </div>
-
       <ProductReel
         href="/products"
+        // @ts-expect-error
         query={{ category: product.category, limit: 4 }}
         title={`Similar ${label}`}
         subtitle={`Browse similar high-quality ${label} just like '${product.name}'`}

@@ -7,7 +7,7 @@ const addUser: BeforeChangeHook = ({ req, data }) => {
   return { ...data, user: user?.id };
 };
 
-const yourownAndPurchased: Access = async ({ req }) => {
+const yourOwnAndPurchased: Access = async ({ req }) => {
   const user = req.user as User | null;
 
   if (user?.role === "admin") return true;
@@ -22,6 +22,7 @@ const yourownAndPurchased: Access = async ({ req }) => {
       },
     },
   });
+
   const ownProductFileIds = products.map((prod) => prod.product_files).flat();
 
   const { docs: orders } = await req.payload.find({
@@ -33,9 +34,10 @@ const yourownAndPurchased: Access = async ({ req }) => {
       },
     },
   });
+
   const purchasedProductFileIds = orders
-    .map((order) => {
-      return order.products.map((product) => {
+    .map((order: any) => {
+      return order.products.map((product: any) => {
         if (typeof product === "string")
           return req.payload.logger.error(
             "Search depth not sufficient to find purchased file IDs"
@@ -65,7 +67,7 @@ export const ProductFiles: CollectionConfig = {
     beforeChange: [addUser],
   },
   access: {
-    read: yourownAndPurchased,
+    read: yourOwnAndPurchased,
     update: ({ req }) => req.user.role === "admin",
     delete: ({ req }) => req.user.role === "admin",
   },

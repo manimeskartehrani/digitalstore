@@ -1,5 +1,5 @@
 import MaxWithWrapper from "@/components/MaxWithWrapper";
-import { ProductReel } from "@/components/ProductReel";
+import ProductReel from "@/components/ProductReel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 import Link from "next/link";

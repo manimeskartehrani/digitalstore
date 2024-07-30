@@ -13,8 +13,8 @@ export interface Config {
     media: Media;
     product_files: ProductFile;
     orders: Order;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
+    "payload-preferences": PayloadPreference;
+    "payload-migrations": PayloadMigration;
   };
   globals: {};
 }
@@ -23,8 +23,9 @@ export interface Config {
  * via the `definition` "users".
  */
 export interface User {
+  products?: (string | Product)[] | null;
   id: string;
-  role: 'admin' | 'user';
+  role: "admin" | "user";
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -48,11 +49,11 @@ export interface Product {
   name: string;
   description?: string | null;
   price: number;
-  category: 'ui_kits' | 'icons';
+  category: "ui_kits" | "icons";
   product_files: string | ProductFile;
-  approvedForSale?: ('pending' | 'approved' | 'denied') | null;
+  approvedForSale?: ("pending" | "approved" | "denied") | null;
   priceId?: string | null;
-  stripId?: string | null;
+  stripeId?: string | null;
   images: {
     image: string | Media;
     id?: string | null;
@@ -131,6 +132,8 @@ export interface Order {
   _isPaid: boolean;
   user: string | User;
   products: (string | Product)[];
+  // products: string[];
+
   updatedAt: string;
   createdAt: string;
 }
@@ -141,7 +144,7 @@ export interface Order {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: string | User;
   };
   key?: string | null;
@@ -169,7 +172,6 @@ export interface PayloadMigration {
   createdAt: string;
 }
 
-
-declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
-}
+// declare module "payload" {
+//   export interface GeneratedTypes extends Config {}
+// }
