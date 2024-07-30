@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import MaxWithWrapper from "./MaxWithWrapper";
 import { Icons } from "./Icons";

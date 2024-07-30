@@ -4,7 +4,6 @@ import { z } from "zod";
 import { getPayloadClient } from "../get-payload";
 import { stripe } from "../lib/stripe";
 import type Stripe from "stripe";
-import { Product } from "@/payload-types";
 
 export const paymentRouter = router({
   createSession: privateProcedure

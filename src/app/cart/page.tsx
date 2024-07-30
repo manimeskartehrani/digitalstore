@@ -11,7 +11,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
-import { string } from "zod";
 
 const Page = () => {
   const { items, removeItem } = useCart();
