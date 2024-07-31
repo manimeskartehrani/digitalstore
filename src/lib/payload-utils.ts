@@ -15,6 +15,11 @@ export const getServerSideUser = async (
       },
     }
   );
-  const { user } = (await meRes.json()) as { user: User | null };
-  return { user };
+  try {
+    const { user } = (await meRes.json()) as { user: User | null };
+
+    return { user };
+  } catch (err) {
+    console.log("user error", err);
+  }
 };
