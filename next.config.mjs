@@ -5,8 +5,8 @@ const nextConfig = {
     remotePatterns: [
       {
         hostname: "localhost",
-        // pathname: "**",
-        // port: "3000",
+        pathname: "**",
+        port: "3000",
         protocol: "http",
       },
       {
@@ -15,15 +15,19 @@ const nextConfig = {
       },
     ],
   },
-  // webpack: (
-  //   config,
-  //   { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
-  // ) => {
-  //   if (isServer) {
-  //     config.ignoreWarnings = [{ module: /opentelemetry/ }];
-  //   }
-  //   return config;
-  // },
+  webpack: (
+    config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+  ) => {
+    if (isServer) {
+      config.ignoreWarnings = [{ module: /opentelemetry/ }];
+      config.module = {
+        ...config.module,
+        exprContextCritical: false,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

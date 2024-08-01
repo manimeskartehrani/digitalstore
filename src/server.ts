@@ -13,7 +13,7 @@ import { PayloadRequest } from "payload/types";
 import { parse } from "url";
 
 const app = express();
-// const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 const createContext = ({
   req,
@@ -48,7 +48,7 @@ const start = async () => {
   });
 
   if (process.env.NEXT_BUILD) {
-    app.listen(async () => {
+    app.listen(PORT, async () => {
       payload.logger.info("Next.js is building for production");
 
       // @ts-expect-error
@@ -89,7 +89,7 @@ const start = async () => {
   nextApp.prepare().then(() => {
     payload.logger.info("Next.js started");
 
-    app.listen(async () => {
+    app.listen(PORT, async () => {
       payload.logger.info(
         `Next.js App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`
       );
